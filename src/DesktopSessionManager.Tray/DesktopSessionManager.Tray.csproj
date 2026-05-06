@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <AssemblyName>SessionManagerTray</AssemblyName>
+    <RootNamespace>DesktopSessionManager.Tray</RootNamespace>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+  <!-- WPF and WinForms are Windows-only; only activate on Windows hosts -->
+  <PropertyGroup Condition="'$(OS)'=='Windows_NT'">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <!-- On non-Windows, build as Library stub (WinExe requires entry point) -->
+  <PropertyGroup Condition="'$(OS)'!='Windows_NT'">
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesktopSessionManager.Core\DesktopSessionManager.Core.csproj" />
+    <ProjectReference Include="..\DesktopSessionManager.Infrastructure\DesktopSessionManager.Infrastructure.csproj" />
+  </ItemGroup>
+  <!-- On non-Windows, exclude source files that require WPF/WinForms -->
+  <ItemGroup Condition="'$(OS)'!='Windows_NT'">
+    <Compile Remove="**\*.cs" />
+    <Compile Remove="**\*.xaml.cs" />
+    <Page Remove="**\*.xaml" />
+  </ItemGroup>
+</Project>
