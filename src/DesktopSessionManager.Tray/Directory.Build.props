@@ -1,0 +1,9 @@
+<Project>
+  <!--
+    WPF and Windows Forms (used by the Tray app) require Microsoft.NET.Sdk.WindowsDesktop,
+    which is only available on Windows. On Linux/macOS this project is excluded from build.
+  -->
+  <PropertyGroup Condition="!$([MSBuild]::IsOSPlatform('Windows'))">
+    <IsExcludedFromBuild>true</IsExcludedFromBuild>
+  </PropertyGroup>
+</Project>
