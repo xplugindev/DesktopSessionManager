@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace DesktopSessionManager.Tray;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     private TrayApplicationContext? _context;
 
